@@ -2,4 +2,4 @@
 
 Перед установкай новой версии, рекомендуется удалить старую!
 
-<link title="Скачать" href="https://github.com/awelijuh/class-schedule/raw/master/Downloads/app-release.apk" />
+<a href="https://github.com/awelijuh/class-schedule/raw/master/Downloads/app-release.apk">Скачать</a>
