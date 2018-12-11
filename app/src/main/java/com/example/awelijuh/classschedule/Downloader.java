@@ -3,16 +3,11 @@ package com.example.awelijuh.classschedule;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.AsyncTask;
-import android.os.Environment;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
-import android.util.Log;
 
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -26,17 +21,18 @@ public class Downloader {
         this.downloaded = downloaded;
     }
 
-    private static void saveUrl(Context context, final String filename, final String urlString)
+    private static void saveUrl(Context context, final String urlString)
             throws MalformedURLException, IOException {
         BufferedInputStream in = null;
         FileOutputStream fout = null;
-        String path = context.getCacheDir() + "/" + filename;
+        String path = context.getCacheDir() + "/" + "schedule";
         try {
             in = new BufferedInputStream(new URL(urlString).openStream());
             File file = new File(path);
             if (!file.exists()) {
                 file.createNewFile();
             }
+
             fout = new FileOutputStream(path);
 
             final byte data[] = new byte[1024];
@@ -73,7 +69,7 @@ public class Downloader {
         @Override
         protected Void doInBackground(Void... voids) {
             try {
-                saveUrl(context,"schedule", url);
+                saveUrl(context, url);
             } catch (IOException e) {
                 e.printStackTrace();
             }

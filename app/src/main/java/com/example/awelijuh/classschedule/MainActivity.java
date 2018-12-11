@@ -1,5 +1,6 @@
 package com.example.awelijuh.classschedule;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -89,8 +91,10 @@ public class MainActivity extends AppCompatActivity implements Downloaded {
         tabLayout.setupWithViewPager(viewPager);
         Calendar calendar = Calendar.getInstance();
         int day = calendar.get(Calendar.DAY_OF_WEEK) - 2;
+        if (day < 0) {
+            day = 0;
+        }
         Log.d("deb_", "day=" + day);
-        day = (day + 6) % 6;
         viewPager.setCurrentItem(day);
     }
 
@@ -98,7 +102,13 @@ public class MainActivity extends AppCompatActivity implements Downloaded {
         Spinner spinner = findViewById(R.id.course_spinner);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        adapter.addAll(parser.getSheetNames());
+        String[] s = parser.getSheetNames();
+        if (s == null) {
+            Toast.makeText(this, "Ошибка. Попробуйте обновить.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        adapter.addAll(s);
         spinner.setAdapter(adapter);
 
         spinner.setSelection(sharedPreferences.getInt("default_course", 0));
@@ -106,7 +116,7 @@ public class MainActivity extends AppCompatActivity implements Downloaded {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                sharedPreferences.edit().putInt("default_course", position).commit();
+                sharedPreferences.edit().putInt("default_course", position).apply();
                 initGroupSpinner(position);
             }
 
@@ -122,14 +132,21 @@ public class MainActivity extends AppCompatActivity implements Downloaded {
         Spinner spinner = findViewById(R.id.group_spinner);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        adapter.addAll(parser.getGroupNames(course));
+
+        String[] s = parser.getGroupNames(course);
+        if (s == null) {
+            Toast.makeText(this, "Ошибка. Попробуйте обновить.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        adapter.addAll(s);
         spinner.setAdapter(adapter);
         spinner.setSelection(sharedPreferences.getInt("default_group", 0));
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                sharedPreferences.edit().putInt("default_group", position).commit();
+                sharedPreferences.edit().putInt("default_group", position).apply();
                 initTab(course, position);
             }
 
@@ -158,6 +175,7 @@ public class MainActivity extends AppCompatActivity implements Downloaded {
         if (lockUpdate) {
             return;
         }
+        Toast.makeText(this, "Загрузка расписания.", Toast.LENGTH_SHORT).show();
         lockUpdate = true;
         Downloader downloader = new Downloader(this, this);
         downloader.download();

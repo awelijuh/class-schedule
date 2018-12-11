@@ -27,8 +27,12 @@ public class ScheduleAdapter extends ArrayAdapter<Pair<String, String>> {
                     .inflate(R.layout.item, parent, false);
         }
         Pair<String, String> item = getItem(position);
+        if (item == null || item.first == null || item.second == null) {
+            return convertView;
+        }
         TextView textView = convertView.findViewById(R.id.textView);
         TextView textView2 = convertView.findViewById(R.id.textView2);
+
 
         textView.setText(item.second);
         textView2.setText(item.first);
