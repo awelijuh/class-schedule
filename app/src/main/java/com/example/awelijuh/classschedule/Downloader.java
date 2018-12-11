@@ -59,7 +59,7 @@ public class Downloader {
 
 
     @SuppressLint("StaticFieldLeak")
-    class Download extends AsyncTask<Void, Void, Void> {
+    class Download extends AsyncTask<Void, Void, Boolean> {
 
         @Override
         protected void onPreExecute() {
@@ -67,19 +67,19 @@ public class Downloader {
         }
 
         @Override
-        protected Void doInBackground(Void... voids) {
+        protected Boolean doInBackground(Void... voids) {
             try {
                 saveUrl(context, url);
             } catch (IOException e) {
-                e.printStackTrace();
+                return false;
             }
-            return null;
+            return true;
         }
 
         @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            downloaded.onDownloaded();
+        protected void onPostExecute(Boolean ok) {
+            super.onPostExecute(ok);
+            downloaded.onDownloaded(ok);
         }
     }
 

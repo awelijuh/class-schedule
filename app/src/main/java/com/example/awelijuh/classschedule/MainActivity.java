@@ -160,14 +160,21 @@ public class MainActivity extends AppCompatActivity implements Downloaded {
     boolean lockUpdate = false;
 
     @Override
-    public void onDownloaded() {
+    public void onDownloaded(Boolean ok) {
+        if (!ok) {
+            Toast.makeText(this, "Обновление не удалось.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        else {
+            Toast.makeText(this, "Загрузка удалась!", Toast.LENGTH_SHORT).show();
+        }
         lockUpdate = false;
         parser = new Parser(this);
-        if (!parser.isValid()) {
-            Toast.makeText(this, "Не удалось загрузить расписание.", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(this, "Расписание успешно загружено.", Toast.LENGTH_SHORT).show();
+        if (parser.isValid()) {
             initCourseSpinners();
+        }
+        else {
+            Toast.makeText(this, "Ошибка. Попробуйте обновить.", Toast.LENGTH_SHORT).show();
         }
     }
 
