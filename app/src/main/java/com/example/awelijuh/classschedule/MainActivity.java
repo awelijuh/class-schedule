@@ -157,10 +157,10 @@ public class MainActivity extends AppCompatActivity implements Downloaded {
         });
 
     }
-    boolean lockUpdate = false;
 
     @Override
     public void onDownloaded(Boolean ok) {
+
         if (!ok) {
             Toast.makeText(this, "Обновление не удалось.", Toast.LENGTH_SHORT).show();
             return;
@@ -168,7 +168,6 @@ public class MainActivity extends AppCompatActivity implements Downloaded {
         else {
             Toast.makeText(this, "Загрузка удалась!", Toast.LENGTH_SHORT).show();
         }
-        lockUpdate = false;
         parser = new Parser(this);
         if (parser.isValid()) {
             initCourseSpinners();
@@ -179,11 +178,7 @@ public class MainActivity extends AppCompatActivity implements Downloaded {
     }
 
     void update() {
-        if (lockUpdate) {
-            return;
-        }
         Toast.makeText(this, "Загрузка расписания.", Toast.LENGTH_SHORT).show();
-        lockUpdate = true;
         Downloader downloader = new Downloader(this, this);
         downloader.download();
     }
