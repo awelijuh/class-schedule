@@ -4,5 +4,5 @@ Android приложение, которое скачивает и показы�
 
 <a href="https://github.com/awelijuh/class-schedule/raw/master/Downloads/app-release.apk">Скачать APK</a>
 
-В случае если первый apk не устанавливается, попробуйте <a href="https://github.com/awelijuh/class-schedule/raw/master/Downloads/app-release.apk">этот</a>
+В случае если первый apk не устанавливается, попробуйте <a href="https://github.com/awelijuh/class-schedule/raw/master/Downloads/app-debug.apk">этот</a>
 
