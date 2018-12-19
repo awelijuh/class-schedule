@@ -71,6 +71,12 @@ public class MainActivity extends AppCompatActivity implements Downloaded {
             update();
             return true;
         }
+        if (id == R.id.item_about) {
+            Intent intent = new Intent(this, AboutActivity.class);
+            startActivity(intent);
+
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -84,18 +90,22 @@ public class MainActivity extends AppCompatActivity implements Downloaded {
                 getSupportFragmentManager(),
                 new Parser(getApplicationContext()),
                 course,
-                group
+                group,
+                getCurrentDay()
         );
         viewPager.setAdapter(pagerAdapter);
         viewPager.clearOnPageChangeListeners();
         tabLayout.setupWithViewPager(viewPager);
+        viewPager.setCurrentItem(getCurrentDay());
+    }
+
+    int getCurrentDay() {
         Calendar calendar = Calendar.getInstance();
         int day = calendar.get(Calendar.DAY_OF_WEEK) - 2;
         if (day < 0) {
             day = 0;
         }
-        Log.d("deb_", "day=" + day);
-        viewPager.setCurrentItem(day);
+        return day;
     }
 
     private void initCourseSpinners() {

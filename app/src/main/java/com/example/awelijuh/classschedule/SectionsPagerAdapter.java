@@ -13,19 +13,21 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     Parser parser;
     int numSheet;
     int numGroup;
+    int currentDay;
 
 
 
-    public SectionsPagerAdapter(FragmentManager fm, Parser parser, int numSheet, int numGroup) {
+    public SectionsPagerAdapter(FragmentManager fm, Parser parser, int numSheet, int numGroup, int currentDay) {
         super(fm);
         this.parser = parser;
         titles = parser.getDateNames(numSheet);
-        setParams(numSheet, numGroup);
+        setParams(numSheet, numGroup, currentDay);
     }
 
-    public void setParams(int numSheet, int numGroup) {
+    public void setParams(int numSheet, int numGroup, int currentDay) {
         this.numSheet = numSheet;
         this.numGroup = numGroup;
+        this.currentDay = currentDay;
     }
 
     public void replaceParser(Parser parser) {
@@ -40,7 +42,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return ScheduleFragment.newFragment(parser, numSheet, numGroup, position);
+        return ScheduleFragment.newFragment(parser, numSheet, numGroup, position, position == currentDay);
     }
 
     @Override

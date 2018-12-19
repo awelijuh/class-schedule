@@ -3,6 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.awelijuh.classschedule.MainActivity">
     <item
+        android:title="@string/about_title"
+        android:id="@+id/item_about"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_info_black_24dp"/>
+    <item
         android:id="@+id/item_update"
         app:showAsAction="always"
         android:title="@string/update_text" />

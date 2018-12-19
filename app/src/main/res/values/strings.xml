@@ -3,4 +3,10 @@
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="update_text">Обновить</string>
+    <string name="about">
+        Приложение предназначено для быстрого и удобного доступа к расписанию Физико-математического факультета Брестского государственного университета имени А.С. Пушкина.\n\n
+        Код а также актуальную версию приложения можно найти по ссылке: https://github.com/awelijuh/class-schedule\n
+        Разработчик: Степан Слоневский\n
+        Email: stepan.slonevsky@gmail.com</string>
+    <string name="about_title">О приложении</string>
 </resources>
